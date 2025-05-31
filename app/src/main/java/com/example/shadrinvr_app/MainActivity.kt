@@ -6,40 +6,35 @@ import android.graphics.Color
 import android.view.View
 import android.widget.Button
 import android.widget.EditText;
+import com.example.shadrinvr_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var squareView: View
-    private lateinit var changeColorButton: Button
+    private lateinit var binding: ActivityMainBinding
     private val colors = arrayOf(Color.parseColor("#964B00"), Color.GRAY, Color.RED)
 
-    private lateinit var numberEditText: EditText
-    private lateinit var incrementButton: Button
     private var currentColorIndex = 0
     private var currentNumber = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        squareView = findViewById(R.id.squareView)
-        changeColorButton = findViewById(R.id.changeColorButton)
-        numberEditText = findViewById(R.id.numberEditText)
-        incrementButton = findViewById(R.id.incrementButton)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        numberEditText.setText(currentNumber.toString())
+        binding.numberEditText.setText(getString(R.string.initial_number))
 
-        changeColorButton.setOnClickListener {
+        binding.changeColorButton.setOnClickListener {
             changeSquareColor()
         }
 
-        incrementButton.setOnClickListener {
+        binding.incrementButton.setOnClickListener {
             incrementNumber()
         }
     }
 
     private fun changeSquareColor() {
         currentColorIndex = (currentColorIndex + 1) % colors.size
-        squareView.setBackgroundColor(colors[currentColorIndex])
+        binding.squareView.setBackgroundColor(colors[currentColorIndex])
     }
 
     private fun incrementNumber() {
@@ -47,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         if (currentNumber > 36) {
             currentNumber = 6
         }
-        numberEditText.setText(currentNumber.toString())
+        binding.numberEditText.setText(currentNumber.toString())
     }
 
 }
